@@ -213,10 +213,10 @@ def main() -> None:
     colorama.init()
 
     progress = Progress(
-        TextColumn("[bold blue]{task.description}", justify="right"),
+        TextColumn("[bold purple]{task.description}", justify="right"),
         BarColumn(bar_width=None),
         SpinnerColumn(
-            spinner_name="monkey", style="bright_yellow", speed=1.0),
+            spinner_name="monkey", style="bright_purple", speed=1.0),
         TimeElapsedColumn()
     )
 
@@ -224,23 +224,23 @@ def main() -> None:
     config_data = config.get_config()
 
     with progress:
-        task1 = progress.add_task("[bold green]Making environment...", total=1)
+        task1 = progress.add_task("[bold purple]Making environment...", total=1)
         make_env = MakeEnv()
         make_env.make_env()
         make_env.get_src()
         progress.update(task1, advance=1)
 
-        task2 = progress.add_task("[bold green]Writing config...", total=1)
+        task2 = progress.add_task("[bold purple]Writing config...", total=1)
         write_config = WriteConfig(config_data)
         write_config.write_config()
         progress.update(task2, advance=1)
 
-        task3 = progress.add_task("[bold green]Obfuscating...", total=1)
+        task3 = progress.add_task("[bold purple]Obfuscating...", total=1)
         do_obfuscate = DoObfuscate()
         do_obfuscate.run()
         progress.update(task3, advance=1)
 
-        task4 = progress.add_task("[bold green]Building...", total=1)
+        task4 = progress.add_task("[bold purple]Building...", total=1)
         build = Build()
         build.get_pyinstaller()
         build.get_upx()
